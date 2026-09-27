@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Ionic Compound Nomenclature
+    </title>
+
+    <link rel="stylesheet"
+          href="styles.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <h1>
+                Ionic Compound Nomenclature
+            </h1>
+
+            <p class="subtitle">
+                Naming Ionic Compounds from their Chemical Formulas and Writing the Chemical Formulas of Ionic Compounds from their Names
+            </p>
+
+        </header>
+
+        <!-- Score Panel -->
+
+        <div class="score-panel">
+
+            <div class="score-box">
+                Score
+                <span id="score">0</span>
+            </div>
+
+            <div class="score-box">
+                Attempts
+                <span id="attempts">0</span>
+            </div>
+
+        </div>
+
+        <!-- Practice Mode -->
+
+        <div class="mode-panel">
+
+            <label for="practiceMode">
+                Practice Mode:
+            </label>
+
+            <select id="practiceMode">
+
+                <option value="formulaToName">
+                    Formula → Name
+                </option>
+
+                <option value="nameToFormula">
+                    Name → Formula
+                </option>
+
+                <option value="mixed">
+                    Mixed Mode
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Question Area -->
+
+        <div class="question-card">
+
+            <h2>
+                Question
+            </h2>
+
+            <div id="formula" class="formula-display">
+
+                NaCl
+
+            </div>
+
+            <input type="text"
+                   id="answer"
+                   placeholder="Enter your answer"
+                   autocomplete="off">
+
+            <div class="button-row">
+
+                <button class="primary"
+                        onclick="checkAnswer()">
+                    Check Answer
+                </button>
+
+                <button class="secondary"
+                        onclick="nextQuestion()">
+                    Next Question
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Feedback -->
+
+        <div id="feedback"
+             class="feedback-panel">
+        </div>
+
+        <!-- Explanation -->
+
+        <div class="explanation-card">
+
+            <h3>
+                Explanation
+            </h3>
+
+            <div id="explanation">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
