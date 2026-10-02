@@ -25,7 +25,7 @@ const fixedChargeCations = [
     { symbol: "Ba", name: "barium", charge: 2 },
 
     { symbol: "Al", name: "aluminum", charge: 3 },
-
+    { symbol: "Ga", name: "gallium", charge: 3 },
     { symbol: "Cd", name: "cadmium", charge: 2 },
     { symbol: "Zn", name: "zinc", charge: 2 },
     { symbol: "Ag", name: "silver", charge: 1 }
@@ -39,7 +39,9 @@ const transitionMetals = [
     { symbol: "Ni", name: "nickel", charges: [2, 3] },
     { symbol: "Fe", name: "iron", charges: [2, 3] },
     {symbol: "Cu", name: "copper", charges: [1, 2] },
-    {symbol: "Sn", name: "tin", charges: [2, 4] },
+    { symbol: "Sn", name: "tin", charges: [2, 4] },
+    { symbol: "Ti", name: "titanium", charges: [2, 3, 4] },
+    { symbol: "V", name: "vanadium", charges: [2, 3, 5] },
     {symbol: "Pb", name: "lead", charges: [2, 4] }
 ];
 
@@ -59,8 +61,17 @@ const anions = [
     {symbol: "CH3CO2", name: "acetate", charge: -1, polyatomic: true },
     {symbol: "CN", name: "cyanide", charge: -1, polyatomic: true },
     {symbol: "ClO3", name: "chlorate", charge: -1, polyatomic: true },
-    {symbol: "ClO", name: "hypochlorite", charge: -1, polyatomic: true },
-    {symbol: "NO2", name: "nitrite", charge: -1, polyatomic: true },
+    { symbol: "ClO", name: "hypochlorite", charge: -1, polyatomic: true },
+    { symbol: "ClO2", name: "chlorite", charge: -1, polyatomic: true },
+    { symbol: "ClO4", name: "perchlorate", charge: -1, polyatomic: true },
+
+    { symbol: "NO2", name: "nitrite", charge: -1, polyatomic: true },
+    { symbol: "HPO4", name: "hydrogen phosphate", charge: -2, polyatomic: true },
+    { symbol: "H2PO4", name: "dihydrogen phosphate", charge: -1, polyatomic: true },
+    { symbol: "HSO4", name: "hydrogen sulfate", charge: -1, polyatomic: true },
+    { symbol: "HSO3", name: "hydrogen sulfite", charge: -1, polyatomic: true },
+
+
     {symbol: "NO3", name: "nitrate", charge: -1, polyatomic: true },
     {symbol: "SO3", name: "sulfite", charge: -2, polyatomic: true },
     {symbol: "SO4", name: "sulfate", charge: -2, polyatomic: true },
