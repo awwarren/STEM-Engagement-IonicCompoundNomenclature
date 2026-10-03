@@ -10,8 +10,8 @@ body {
     margin: 0;
     padding: 30px;
     font-family: "Segoe UI", Arial, sans-serif;
-    background-color: #f3f7fc;
-    color: #222;
+    background-color: #00796B;
+    color: #1f1f1f;
 }
 
 /********************************************
@@ -21,25 +21,25 @@ CONTAINER
 .container {
     max-width: 1000px;
     margin: auto;
-    background: white;
+    background: #ffffff;
     padding: 30px;
     border-radius: 14px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.12);
 }
 
 /********************************************
-HEADER
+HEADER #2E7D32
 ********************************************/
 
 h1 {
     text-align: center;
-    color: #003366;
+    color: #222;
     margin-bottom: 10px;
 }
 
 .subtitle {
     text-align: center;
-    color: #666;
+    color: #5f6b63;
     margin-bottom: 30px;
 }
 
@@ -55,8 +55,8 @@ SCORE PANEL
 }
 
 .score-box {
-    background: #eaf3ff;
-    border: 1px solid #c7ddff;
+    background: #E8F5E9;
+    border: 1px solid #A5D6A7;
     border-radius: 10px;
     padding: 15px 25px;
     text-align: center;
@@ -67,7 +67,7 @@ SCORE PANEL
     .score-box span {
         display: block;
         font-size: 1.7rem;
-        color: #005ea8;
+        color: #2E7D32;
         margin-top: 5px;
     }
 
@@ -98,8 +98,8 @@ QUESTION CARD
 
 .question-card {
     text-align: center;
-    background: #fafcff;
-    border: 1px solid #dbe8fa;
+    background: #FCFEFC;
+    border: 1px solid #C8E6C9;
     border-radius: 12px;
     padding: 25px;
 }
@@ -109,15 +109,12 @@ FORMULA DISPLAY
 ********************************************/
 
 .formula-display {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #005ea8;
-    margin: 25px 0;
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: #2E7D32;
+    font-size: 3.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
+
 
 /********************************************
 INPUT
@@ -129,12 +126,12 @@ INPUT
     padding: 14px;
     font-size: 1.1rem;
     border-radius: 8px;
-    border: 2px solid #cfd8e3;
+    border: 2px solid #B0BEC5;
 }
 
     #answer:focus {
         outline: none;
-        border-color: #005ea8;
+        border-color: #2E7D32;
     }
 
 /********************************************
@@ -165,12 +162,12 @@ button {
     }
 
 .secondary {
-    background-color: #6c757d;
+    background-color: #1b7f2a;
     color: white;
 }
 
     .secondary:hover {
-        background-color: #565e64;
+        background-color: #005A4F;
     }
 
 /********************************************
@@ -185,22 +182,22 @@ FEEDBACK
 }
 
 .correct {
-    color: #1b7f2a;
+    color: #388E3C;
     font-weight: bold;
 }
 
 .incorrect {
-    color: #c62828;
+    color: #D32F2F;
     font-weight: bold;
 }
 
 /********************************************
-EXPLANATION
+EXPLANATION #eef5ff;#003366
 ********************************************/
 
 .explanation-card {
     margin-top: 25px;
-    background: #eef5ff;
+    background: #F3FAF4;
     border: 1px solid #d2e2fb;
     border-radius: 12px;
     padding: 20px;
@@ -208,7 +205,7 @@ EXPLANATION
 
     .explanation-card h3 {
         margin-top: 0;
-        color: #003366;
+        color: #2E7D32;
     }
 
 #explanation {

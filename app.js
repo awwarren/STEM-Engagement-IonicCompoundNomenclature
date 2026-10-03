@@ -84,51 +84,27 @@ const anions = [
 /*****************************************************************
 * Covalent Compound Repositories
 *****************************************************************/
-
-const covalentFirstElements = [
-    { symbol: "B", name: "boron" },
-    { symbol: "C", name: "carbon" },
-    { symbol: "Si", name: "silicon" },
-    { symbol: "N", name: "nitrogen" },
-    { symbol: "P", name: "phosphorus" },
-    { symbol: "As", name: "arsenic" },
-    { symbol: "O", name: "oxygen" },
-    { symbol: "S", name: "sulfur" },
-    { symbol: "Se", name: "selenium" },
-    { symbol: "F", name: "fluorine" },
-    { symbol: "Cl", name: "chlorine" },
-    { symbol: "Br", name: "bromine" },
-    { symbol: "I", name: "iodine" }
+const covalentCompounds = [
+{formula: "CO", name: "carbon monoxide"},
+{formula: "CO2", name: "carbon dioxide"},
+{formula: "N2O", name: "dinitrogen monoxide"},
+{formula: "NO", name: "nitrogen monoxide" },
+{formula: "NO2", name: "nitrogen dioxide"},
+{formula: "N2O3", name: "dinitrogen trioxide"},
+{formula: "N2O4", name: "dinitrogen tetroxide"},
+{formula: "N2O5", name: "dinitrogen pentoxide"},
+{formula: "SO2", name: "sulfur dioxide"},
+{formula: "SO3", name: "sulfur trioxide"},
+{formula: "PCl3", name: "phosphorus trichloride"},
+{formula: "PCl5", name: "phosphorus pentachloride" },
+{formula: "SF4", name: "sulfur tetrafluoride"},
+{formula: "SF6", name: "sulfur hexafluoride"},
+{formula: "Cl2O7", name: "dichlorine heptoxide"},
+{formula: "BrF3", name: "bromine trifluoride" },
+{formula: "BrF5", name: "bromine pentafluoride"},
+{formula: "IF7", name: "iodine heptafluoride"}
 ];
 
-const covalentSecondElements = [
-    { symbol: "B", name: "boride" },
-    { symbol: "C", name: "carbide" },
-    { symbol: "Si", name: "silicide" },
-    { symbol: "N", name: "nitride" },
-    { symbol: "P", name: "phosphide" },
-    { symbol: "As", name: "arsenide" },
-    { symbol: "O", name: "oxide" },
-    { symbol: "S", name: "sulfide" },
-    { symbol: "Se", name: "selenide" },
-    { symbol: "F", name: "fluoride" },
-    { symbol: "Cl", name: "chloride" },
-    { symbol: "Br", name: "bromide" },
-    { symbol: "I", name: "iodide" }
-];
-
-const covalentPrefixes = {
-    1: "mono",
-    2: "di",
-    3: "tri",
-    4: "tetra",
-    5: "penta",
-    6: "hexa",
-    7: "hepta",
-    8: "octa",
-    9: "nona",
-    10: "deca"
-};
 /*****************************************************************
 * Utility Functions
 *****************************************************************/
@@ -241,56 +217,7 @@ function buildName(cation, anion) {
 }
 
 
-/*****************************************************************
-* Covalent Naming Engine
-*****************************************************************/
 
-function covalentPrefix(number) {
-    return covalentPrefixes[number];
-}
-
-function buildCovalentName(firstElement, firstSub, secondElement, secondSub) {
-
-    // The prefix "mono" is NOT used on the first element.
-    let firstName;
-
-    if (firstSub === 1) {
-        firstName = firstElement.name;
-    }
-    else {
-        firstName =
-            covalentPrefix(firstSub) +
-            firstElement.name;
-    }
-
-    let prefix =
-        covalentPrefix(secondSub);
-
-    /*
-    * Handle common vowel contractions before "oxide":
-    *
-    * mono + oxide -> monoxide
-    * tetra + oxide -> tetroxide
-    * penta + oxide -> pentoxide
-    */
-    if (secondElement.name === "oxide") {
-
-        if (prefix === "mono") {
-            prefix = "mon";
-        }
-        else if (prefix === "tetra") {
-            prefix = "tetr";
-        }
-        else if (prefix === "penta") {
-            prefix = "pent";
-        }
-    }
-
-    const secondName =
-        prefix + secondElement.name;
-
-    return `${firstName} ${secondName}`;
-}
 
 /*****************************************************************
 * Random Compound Generator
@@ -390,128 +317,69 @@ The Correct Chemical Name (note that when Roman numerals are required, they must
 *****************************************************************/
 
 function getRandomCovalentCompound() {
-
-    let firstElement =
-        covalentFirstElements[
-        Math.floor(
-            Math.random() *
-            covalentFirstElements.length
+    
+    const compound =    
+    covalentCompounds[
+      Math.floor(
+      Math.random() * 
+      covalentCompounds.length
         )
-        ];
-
-    let secondElement =
-        covalentSecondElements[
-        Math.floor(
-            Math.random() *
-            covalentSecondElements.length
-        )
-        ];
-
-    // Prevent an element from combining with itself.
-    while (firstElement.symbol === secondElement.symbol) {
-        secondElement =
-            covalentSecondElements[
-            Math.floor(
-                Math.random() *
-                covalentSecondElements.length
-            )
-            ];
-    }
-
-    /*
-    * Random subscripts 1-5.
-    *
-    * You can increase 5 later if you want students
-    * practicing prefixes such as hexa-, hepta-, etc.
-    */
-    const firstSub =
-        Math.floor(Math.random() * 5) + 1;
-
-    const secondSub =
-        Math.floor(Math.random() * 5) + 1;
-
-    let formula = firstElement.symbol;
-
-    if (firstSub > 1) {
-        formula += firstSub;
-    }
-
-    formula += secondElement.symbol;
-
-    if (secondSub > 1) {
-        formula += secondSub;
-    }
-
-    const name =
-        buildCovalentName(
-            firstElement,
-            firstSub,
-            secondElement,
-            secondSub
-        );
-
+];
+    
     const explanation = `
-<strong>STEP 1</strong>
- 
-Recognize this as a <strong>binary covalent (molecular) compound</strong>. Covalent compounds in this exercise contain two nonmetal elements.
- 
-<strong>STEP 2</strong>
- 
-Name the first element using its normal element name.
- 
-Use a numerical prefix to indicate the number of atoms present, except that <strong>mono- is normally omitted from the first element</strong>.
- 
-Number of ${firstElement.name} atoms = ${firstSub}
- 
-<strong>STEP 3</strong>
- 
-Name the second element using its modified <strong>-ide</strong> ending.
- 
-A numerical prefix is used on the second element, <strong>including mono- when only one atom is present</strong>.
- 
-Number of ${secondElement.name} atoms = ${secondSub}
- 
-<strong>STEP 4</strong>
- 
-The prefixes used here are:
- 
-1 = mono<br>
-2 = di<br>
-3 = tri<br>
-4 = tetra<br>
-5 = penta<br>
-6 = hexa<br>
-7 = hepta<br>
-8 = octa<br>
-9 = nona<br>
-10 = deca
- 
-<strong>STEP 5</strong>
- 
-The Correct Chemical Formula:
- 
-<strong>${normalizeFormula(formula)}</strong>
- 
-The Correct Chemical Name:
- 
-<strong>${name}</strong>
-`;
 
+<strong>STEP 1</strong>
+
+Recognize this as a binary covalent (molecular) compound.
+
+Covalent compounds are composed of nonmetals bonded together.
+
+<strong>STEP 2</strong>
+
+Use prefixes to indicate the number of atoms present.
+
+Common prefixes:
+
+mono = 1
+di = 2
+tri = 3
+tetra = 4
+penta = 5
+hexa = 6
+hepta = 7
+octa = 8
+nona = 9
+deca = 10
+
+<strong>STEP 3</strong>
+
+The Correct Chemical Formula:
+
+<strong>${normalizeFormula(compound.formula)}</strong>
+
+<strong>STEP 4</strong>
+
+The Correct Chemical Name:
+
+<strong>${compound.name}</strong>
+
+`;
+    
+
+    
     return {
-        type: "covalent",
-        firstElement,
-        secondElement,
-        firstSub,
-        secondSub,
-        formula,
-        name,
-        explanation
-    };
+        
+type: "covalent",    
+formula: compound.formula,
+name: compound.name,
+explanation
+};
 }
 
 /*****************************************************************
 * Next Question
 *****************************************************************/
+
 
 function nextQuestion() {
 
@@ -520,97 +388,68 @@ function nextQuestion() {
             "practiceMode"
         ).value;
 
-    /*
-    * Determine what CATEGORY of compound to generate.
-    */
-
     let compoundType;
+    let questionDirection;
+    if (mode === "ionicFormulaToName") {
 
-    if (mode === "covalent") {
-
-        compoundType = "covalent";
+        compoundType = "ionic";
+        questionDirection = "formulaToName";
 
     }
-    else if (mode === "mixed") {
+    else if (mode === "ionicNameToFormula") {
 
-        /*
-        * Mixed mode:
-        * 50% ionic
-        * 50% covalent
-        */
+        compoundType = "ionic";
+        questionDirection = "nameToFormula";
+
+    }
+    else if (mode === "covalentFormulaToName") {
+
+        compoundType = "covalent";
+        questionDirection = "formulaToName";
+
+    }
+    else if (mode === "covalentNameToFormula") {
+
+        compoundType = "covalent";
+        questionDirection = "nameToFormula";
+
+    }
+    else {
+
         compoundType =
             Math.random() < 0.5
                 ? "ionic"
                 : "covalent";
 
+        questionDirection =
+            Math.random() < 0.5
+                ? "formulaToName"
+                : "nameToFormula";
+
+    }
+    if (compoundType === "ionic") {
+
+        currentCompound =
+            getRandomCompound();
+
     }
     else {
-
-        compoundType = "ionic";
-    }
-
-    /*
-    * Generate the appropriate type of compound.
-    */
-
-    if (compoundType === "covalent") {
 
         currentCompound =
             getRandomCovalentCompound();
 
     }
-    else {
-
-        currentCompound =
-            getRandomCompound();
-    }
-
-    /*
-    * Determine QUESTION DIRECTION.
-    *
-    * formulaToName mode:
-    * formula -> name
-    *
-    * nameToFormula mode:
-    * name -> formula
-    *
-    * mixed mode randomly selects either direction.
-    */
-
-    if (mode === "mixed") {
-
-        currentQuestionType =
-            Math.random() < 0.5
-                ? "formulaToName"
-                : "nameToFormula";
-
-    }
-    else if (mode === "covalent") {
-
-        /*
-        * In covalent-only mode, randomly ask
-        * either direction.
-        */
-
-        currentQuestionType =
-            Math.random() < 0.5
-                ? "formulaToName"
-                : "nameToFormula";
-
-    }
-    else {
-
-        currentQuestionType = mode;
-    }
-
-    /*
-    * Display question.
-    */
-
+    currentQuestionType =
+        questionDirection;
     const prompt =
-        document.getElementById("formula");
+        document.getElementById(
+            "formula"
+        );
 
-    if (currentQuestionType === "formulaToName") {
+    if (
+        currentQuestionType ===
+        "formulaToName"
+    ) {
 
         prompt.innerHTML =
             normalizeFormula(
@@ -633,22 +472,15 @@ function nextQuestion() {
         ).placeholder =
             "Enter the chemical formula";
     }
-
     /*
-    * Clear previous answer/feedback.
-    */
+        * Clear previous answer/feedback.
+        */
 
-    document.getElementById(
-        "answer"
-    ).value = "";
+    document.getElementById("answer").value = "";
+    document.getElementById("feedback").innerHTML = "";
+    document.getElementById("explanation").textContent = "";
+    document.getElementById("answer").focus();
 
-    document.getElementById(
-        "feedback"
-    ).innerHTML = "";
-
-    document.getElementById(
-        "explanation"
-    ).textContent = "";
 }
 
 
