@@ -85,7 +85,70 @@ const anions = [
 * Covalent Compound Repositories
 *****************************************************************/
 const covalentCompounds = [
-{formula: "CO", name: "carbon monoxide"},
+{formula: "CO", name: "carbon monoxide" },
+    { formula: "BAs", name: "boron arsenide" },
+    { formula: "CBr4", name: "carbon tetrabromide",
+        alternateNames: ["tetrabromomethane"]},
+    { formula: "BN", name: "boron nitride" },
+    { formula: "BBr3", name: "boron tribromide" },
+    { formula: "BF3", name: "boron trifluoride" },
+    { formula: "BI3", name: "boron triiodide" },
+    { formula: "BrO2", name: "bromine dioxide" },
+    { formula: "BrCl", name: "bromine chloride" },
+    { formula: "BrF", name: "bromine fluoride" },
+    { formula: "CS2", name: "carbon disulfide" },
+    {formula: "CCl4", name: "carbon tetrachloride",
+        alternateNames: ["tetrachloromethane"]},
+    { formula: "CF4", name: "carbon tetrafluoride",
+        alternateNames: ["tetrafluoromethane"]},
+    { formula: "CI4", name: "carbon tetraiodide",
+        alternateNames: ["tetraiodomethane"]},
+    { formula: "ClO2", name: "chlorine dioxide" },
+    { formula: "ClF5", name: "chlorine pentafluoride" },
+    { formula: "ClF3", name: "chlorine trifluoride" },
+    { formula: "IF4", name: "iodine tetrafluoride" },
+    { formula: "NBr3", name: "nitrogen tribromide" },
+    { formula: "NCl3", name: "nitrogen trichloride" },
+    { formula: "NF3", name: "nitrogen trifluoride" },
+    { formula: "NI3", name: "nitrogen triiodide" },
+    { formula: "OF2", name: "oxygen difluoride" },
+    { formula: "P4S7", name: "tetraphosphorus heptasulfide" },
+    { formula: "P4S6", name: "tetraphosphorus hexasulfide" },
+    { formula: "P4O6", name: "tetraphosphorus hexoxide" },
+    { formula: "PBr3", name: "phosphorus tribromide" },
+    { formula: "PBr5", name: "phosphorus pentabromide" },
+    { formula: "PF5", name: "phosphorus pentafluoride" },
+    { formula: "PF3", name: "phosphorus trifluoride" },
+    { formula: "PI3", name: "phosphorus triiodide" },
+    { formula: "SCl2", name: "sulfur dichloride" },
+    { formula: "SF2", name: "sulfur difluoride" },
+    { formula: "SCl4", name: "sulfur tetrachloride" },
+    { formula: "SeBr", name: "selenium bromide" },
+    { formula: "SeCl2", name: "selenium dichloride" },
+    { formula: "SeF2", name: "selenium difluoride" },
+    { formula: "SeBr2", name: "selenium dibromide" },
+    { formula: "SeO2", name: "selenium dioxide" },
+    { formula: "SeF6", name: "selenium hexafluoride" },
+    { formula: "SeS2", name: "selenium disulfide" },
+    { formula: "SeBr4", name: "selenium tetrabromide" },
+    { formula: "SeCl4", name: "selenium tetrachloride" },
+    { formula: "SeF4", name: "selenium tetrafluoride" },
+    { formula: "SeO3", name: "selenium trioxide" },
+    { formula: "HCl", name: "hydrogen chloride",
+        alternateNames: ["hydrochloric acid"]},
+    { formula: "HF", name: "hydrogen fluoride",
+        alternateNames: ["hydrofluoric acid"]},
+    { formula: "HBr", name: "hydrogen bromide",
+        alternateNames: ["hydrobromic acid"]},
+    { formula: "HI", name: "hydrogen iodide",
+        alternateNames: ["hydroiodic acid"]},
+    { formula: "HCN", name: "hydrogen cyanide",
+        alternateNames: ["hydrocyanic acid"]},
+    { formula: "H2SO4", name: "sulfuric acid" },
+    { formula: "H3PO4", name: "phosphoric acid"},
+    { formula: "HNO3", name: "nitric acid" },
+
+
 {formula: "CO2", name: "carbon dioxide"},
 {formula: "N2O", name: "dinitrogen monoxide"},
 {formula: "NO", name: "nitrogen monoxide" },
@@ -217,8 +280,6 @@ function buildName(cation, anion) {
 }
 
 
-
-
 /*****************************************************************
 * Random Compound Generator
 *****************************************************************/
@@ -273,7 +334,7 @@ function getRandomCompound() {
 
 Identify any variably valent cations and/or polyatomic ions.
 
-Variable valent cations must include their <strong>charge state</strong> in parentheses in their chemical formulas.
+Variable valent cations must include their <strong>charge state</strong> in parentheses in their chemical names.
 
 Polyatomic ions must be enclosed in parentheses if a subscript > 1 is needed in the chemical formula where they are present.
 
@@ -361,19 +422,26 @@ The Correct Chemical Formula:
 
 The Correct Chemical Name:
 
-<strong>${compound.name}</strong>
+<strong>${
+        compound.alternateNames
+            ? [compound.name, ...compound.alternateNames].join(" OR ")
+            : compound.name
+}</strong>
 
 `;
-    
-
-    
+      
     return {
-        
-type: "covalent",    
-formula: compound.formula,
-name: compound.name,
-explanation
-};
+        type: "covalent",
+        formula: compound.formula,
+
+        name: compound.name,
+
+        acceptableNames: compound.alternateNames
+            ? [compound.name, ...compound.alternateNames]
+            : [compound.name],
+
+        explanation
+    };
 }
 
 /*****************************************************************
@@ -504,11 +572,19 @@ function checkAnswer() {
     let correctAnswer;
 
     if (currentQuestionType === "formulaToName") {
+
         studentAnswer =
-            studentAnswer.toLowerCase();
+            studentAnswer.toLowerCase().trim();
+
+        const acceptableAnswers =
+            currentCompound.acceptableNames
+                ? currentCompound.acceptableNames.map(
+                    answer => answer.toLowerCase()
+                )
+                : [currentCompound.name.toLowerCase()];
 
         correctAnswer =
-            currentCompound.name.toLowerCase();
+            acceptableAnswers.includes(studentAnswer);
     }
     else {
         studentAnswer =
@@ -525,7 +601,17 @@ function checkAnswer() {
             "feedback"
         );
 
-    if (studentAnswer === correctAnswer) {
+    let isCorrect;
+
+    if (currentQuestionType === "formulaToName") {
+        isCorrect = correctAnswer;
+    }
+    else {
+        isCorrect =
+            studentAnswer === correctAnswer;
+    }
+
+    if (isCorrect) {
         score++;
 
         document.getElementById(
@@ -543,7 +629,9 @@ function checkAnswer() {
             // Formula was given.
             // Student was asked for the NAME.
             answerDisplay =
-                currentCompound.name;
+                currentCompound.acceptableNames
+                    ? currentCompound.acceptableNames.join(" OR ")
+                    : currentCompound.name;
         }
         else {
 
