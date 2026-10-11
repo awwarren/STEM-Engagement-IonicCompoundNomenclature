@@ -362,7 +362,7 @@ The Correct Chemical Formula (note that when writing these chemical formulas by 
 
 <strong>${normalizeFormula(formula)}</strong>
 
-The Correct Chemical Name (note that when Roman numerals are required, they must be uppercase letters, and that no space exists between the last letter of the element symbol and the open parenthesis:
+The Correct Chemical Name (note that when Roman numerals are required, they must be uppercase letters, and that no space exists between the last letter of the element symbol and the open parenthesis).  Although not indicated below, the polyatomic cations hydrogen carbonate, hydrogen sulfate, and hydrogen sulfite are also commonly known as bicarbonate, bisulfate, and bisulfite, respectively and would be acceptable:
 
 <strong>${name}</strong>`;
 
@@ -372,6 +372,15 @@ The Correct Chemical Name (note that when Roman numerals are required, they must
         anion,
         formula,
         name,
+
+        acceptableNames: anion.alternateNames
+            ? [name, ...anion.alternateNames.map(
+                alt => `${cation.name}${cation.variableCharge
+                    ? `(${romanNumeral(cation.charge)})`
+                    : ""} ${alt}`
+            )]
+            : [name],
+
         explanation
     };
 }
